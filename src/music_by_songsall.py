@@ -10,14 +10,16 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from src import sql
 
-uid = '61946634'#随时可替换用户id
-url_recd = 'https://music.163.com/#/user/songs/rank?id='+uid#构建爬取url
-unknown = '未知'#特殊情况下错误提示用
-asingerlist = []#储存所有时间排行中所有歌手的列表
+
 start = time.time()#设置计时器
-samaritan =webdriver.Chrome()#webdriver实例化
-song={}
+
 def get_record():#创建获取歌手信息的方法
+    uid = '253335632'#随时可替换用户id
+    url_recd = 'https://music.163.com/#/user/songs/rank?id='+uid#构建爬取url
+    unknown = '未知'#特殊情况下错误提示用
+    asingerlist = []#储存所有时间排行中所有歌手的列表
+    samaritan =webdriver.Chrome()#webdriver实例化
+    song={}
     samaritan.get(url_recd)
     #实例化对象访问url
     samaritan.switch_to.frame('g_iframe')
@@ -58,13 +60,13 @@ def get_record():#创建获取歌手信息的方法
     except:
         print(unknown)
         #如遇到意外，提示'未知'。
+    samaritan.close()#关闭浏览器
     return pagerec
 
-def musicSpider():     
+def musicSpider():  
     get_record()#调用爬取方法
-    samaritan.close()#关闭浏览器
     end = time.time()#结束计时
     # print(asingerlist)#打印所有歌手列表
     print(f'总共用时:{end-start}秒')#打印程序用时
-if __name__ == '__main__':
-    musicSpider()
+# if __name__ == '__main__':
+#     musicSpider()

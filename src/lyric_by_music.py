@@ -15,6 +15,7 @@ lyr=''
 from src import sql
 from src.util.user_agents import agents
 
+words=['编曲','混音','录音室','录音师','录音','母带','制作','吉他','贝斯','lyric']
 def clearInf(lyr,n):
         n-=1
         if(re.search('.*:(.*)\n',lyr)):
@@ -87,7 +88,8 @@ class LyricComment(object):
             
             if(n!=0):
                 finalLyric=clearInf(finalLyric,n)
-                
+            for n in range(len(words)):
+                finalLyric=finalLyric.replace(words[n],'')
             # 持久化数据库
             try:
                 sql.insert_lyric(music_id, finalLyric)
@@ -123,6 +125,6 @@ def lyricSpider():
     print("耗时：", (endTime - startTime).seconds, "秒")
 
 
-if __name__ == '__main__':
-    lyricSpider()
+# if __name__ == '__main__':
+#     lyricSpider()
 

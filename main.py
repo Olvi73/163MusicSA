@@ -5,7 +5,7 @@ import os
 from src import sql
 from src.lyric_by_music import lyricSpider
 from src.music_by_songsall import musicSpider
-from src.word_cloud_by_comment import wordcloudG
+from src.word_cloud_by_lyric import wordcloudG
 
 # 保存日志
 class Logger(object):

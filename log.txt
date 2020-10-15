@@ -1,0 +1,32 @@
+开始爬取网易云
+2020-10-15 12:11:10
+清空数据库完成
+总共用时:7.318174123764038秒
+======= 开始爬 歌词 信息 ===========
+2020-10-15 12:11:14
+artists : 100 start
+129236 has no lyric {'nolyric': True, 'sgc': False, 'sfy': False, 'qfy': False, 'needDesc': True, 'code': 200, 'briefDesc': None}
+3951311 has no lyric {'nolyric': True, 'sgc': False, 'sfy': True, 'qfy': True, 'needDesc': True, 'code': 200, 'briefDesc': None}
+4466775 has no lyric {'nolyric': True, 'sgc': False, 'sfy': True, 'qfy': True, 'needDesc': True, 'code': 200, 'briefDesc': None}
+31134629 has no lyric {'nolyric': True, 'sgc': False, 'sfy': True, 'qfy': True, 'needDesc': True, 'code': 200, 'briefDesc': None}
+426881481 has no lyric {'nolyric': True, 'sgc': False, 'sfy': True, 'qfy': True, 'needDesc': True, 'code': 200, 'briefDesc': None}
+426881482 has no lyric {'nolyric': True, 'sgc': False, 'sfy': True, 'qfy': True, 'needDesc': True, 'code': 200, 'briefDesc': None}
+426881483 has no lyric {'nolyric': True, 'sgc': False, 'sfy': True, 'qfy': True, 'needDesc': True, 'code': 200, 'briefDesc': None}
+426881484 has no lyric {'nolyric': True, 'sgc': False, 'sfy': True, 'qfy': True, 'needDesc': True, 'code': 200, 'briefDesc': None}
+426881485 has no lyric {'nolyric': True, 'sgc': False, 'sfy': True, 'qfy': True, 'needDesc': True, 'code': 200, 'briefDesc': None}
+440353010 has no lyric {'nolyric': True, 'sgc': False, 'sfy': True, 'qfy': True, 'needDesc': True, 'code': 200, 'briefDesc': None}
+448741213 has no lyric {'nolyric': True, 'sgc': False, 'sfy': False, 'qfy': False, 'needDesc': True, 'code': 200, 'briefDesc': None}
+531051039 has no lyric {'nolyric': True, 'sgc': False, 'sfy': False, 'qfy': False, 'needDesc': True, 'code': 200, 'briefDesc': None}
+1366976720 has no lyric {'uncollected': True, 'sgc': True, 'sfy': True, 'qfy': True, 'needDesc': True, 'code': 200, 'briefDesc': None}
+1366976721 has no lyric {'uncollected': True, 'sgc': True, 'sfy': True, 'qfy': True, 'needDesc': True, 'code': 200, 'briefDesc': None}
+======= 结束爬 歌词 信息 ===========
+2020-10-15 12:13:01
+耗时： 106 秒
+start analyse lyrics
+2020-10-15 12:13:01
+获取评论信息完毕，分析start: 2020-10-15 12:13:01
+finish analyse comment
+2020-10-15 12:13:10
+耗时： 9 秒
+2020-10-15 12:13:10
+耗时： 120 秒
