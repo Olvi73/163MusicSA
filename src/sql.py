@@ -39,6 +39,11 @@ def get_lyr():
         cursor.execute(sql, ())
         return cursor.fetchall()
 
+def get_artist():
+    with connection.cursor() as cursor:
+        sql = "SELECT nickname FROM `musics2`  "
+        cursor.execute(sql, ())
+        return cursor.fetchall()
 
 # 保存歌词
 def insert_lyric(music_id, lyric):

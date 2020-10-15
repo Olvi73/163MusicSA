@@ -33,8 +33,8 @@ if __name__ == '__main__':
     print("清空数据库完成")
     # 开始执行
     musicSpider()
-    lyricSpider()
-    wordcloudG()
+    # lyricSpider()
+    # wordcloudG()
     endTime = datetime.datetime.now()
     print(endTime.strftime('%Y-%m-%d %H:%M:%S'))
     print("耗时：", (endTime - startTime).seconds, "秒")

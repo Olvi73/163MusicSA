@@ -24,6 +24,8 @@ def wordcloudG():
     print("获取歌词信息完毕，分析start:", midTime.strftime('%Y-%m-%d %H:%M:%S'))
     tags = jieba.analyse.extract_tags(str(texts), 1000, withWeight=True)
     data = {item[0]: item[1] for item in tags}
+    # if 'lyric' in data:
+    #     data.pop('lyric')
     data.pop('lyric')
     word_cloud = WordCloud(scale=16,
                            font_path="msyh.ttc",
