@@ -72,6 +72,7 @@ class LyricComment(object):
                 finalLyric=clearInf(finalLyric)
             # for n in range(len(words)):
             #     finalLyric=finalLyric.replace(words[n],'')
+            #临时清理
             # 持久化数据库
             try:
                 sql.insert_lyric(music_id, finalLyric)
