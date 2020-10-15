@@ -14,7 +14,7 @@ from src import sql
 start = time.time()#设置计时器
 
 def get_record():#创建获取歌手信息的方法
-    uid = '81631214'#随时可替换用户id
+    uid = '381212571'#随时可替换用户id
     url_recd = 'https://music.163.com/#/user/songs/rank?id='+uid#构建爬取url
     unknown = '未知'#特殊情况下错误提示用
     asingerlist = []#储存所有时间排行中所有歌手的列表

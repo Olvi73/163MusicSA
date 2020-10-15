@@ -15,33 +15,18 @@ lyr=''
 from src import sql
 from src.util.user_agents import agents
 
-words=['编曲','混音','录音室','录音师','录音','母带','制作','吉他','贝斯','lyric']
-def clearInf(lyr,n):
-        n-=1
-        if(re.search('.*:(.*)\n',lyr)):
-            rs0=re.search('.*:(.*)\n',lyr).span()[0]
-            rs1=re.search('.*:(.*)\n',lyr).span()[1]
-            temp=lyr[rs0:rs1]
-            lyr=lyr.replace(temp,'')
-        elif(re.search('.*：(.*)\n',lyr)):
-            rs0=re.search('.*：(.*)\n',lyr).span()[0]
-            rs1=re.search('.*：(.*)\n',lyr).span()[1]
-            temp=lyr[rs0:rs1]
-            lyr=lyr.replace(temp,'')
-        else:
-            if(re.search(':',lyr)):
-                if(re.search(':',lyr).span()[0]>len(lyr)/2):
-                    rs=re.search('\n(.*):(.*)',lyr).span()[0]
-                    temp=lyr[rs:]
-                    lyr=lyr.replace(temp,'')
-            if(re.search('：',lyr)):
-                if(re.search('：',lyr).span()[0]>len(lyr)/2):
-                    rs=re.search('\n(.*)：(.*)',lyr).span()[0]
-                    temp=lyr[rs:]
-                    lyr=lyr.replace(temp,'')
+words=['编曲','混音','录音室','录音师','录音','母带','制作','贝斯']
+def clearInf(lyr):
+        if(re.search('.*:.*(\n|.)',lyr)):
+            rs=re.search('.*:.*(\n|.)',lyr).group()
+            lyr=lyr.replace(rs,'')
+        if(re.search('.*：.*(\n|.)',lyr)):
+            rs=re.search('.*：.*(\n|.)',lyr).group()
+            lyr=lyr.replace(rs,'')
         #作曲 :  aaa/bbb\n
+        n=lyr.count(":")+lyr.count("：")
         if(n!=0):
-            return clearInf(lyr,n)
+            return clearInf(lyr)
         return lyr
     
 class LyricComment(object):
@@ -78,18 +63,15 @@ class LyricComment(object):
             regex = re.compile(r'\[.*\]')
             finalLyric = re.sub(regex, '', lyricJson['lrc']['lyric']).strip()
             #把歌词中的作词作曲等信息去掉，利用中英文的:来判断
-            n=finalLyric.count(":")
-            if(n==0):
-                n=finalLyric.count("：")
             # print(n)
             # global lyr
             # lyr=finalLyric
             #临时查看清除的歌词
-            
+            n=finalLyric.count(":")+finalLyric.count("：")
             if(n!=0):
-                finalLyric=clearInf(finalLyric,n)
-            for n in range(len(words)):
-                finalLyric=finalLyric.replace(words[n],'')
+                finalLyric=clearInf(finalLyric)
+            # for n in range(len(words)):
+            #     finalLyric=finalLyric.replace(words[n],'')
             # 持久化数据库
             try:
                 sql.insert_lyric(music_id, finalLyric)
