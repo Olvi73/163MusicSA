@@ -1,22 +1,19 @@
 """
-根据歌曲 ID 获得所有的歌曲所对应的热门评论和歌词
+根据歌曲 ID 获得所有的歌曲所对应的歌词
 """
 import datetime
 import json
-
 import random
 import re
 import time
-
-
 import requests
 
 
 # from src import sql, redis_util
 # from src.util.user_agents import agents
 lyr=''
-import sql
-from util.user_agents import agents
+from src import sql
+from src.util.user_agents import agents
 
 def clearInf(lyr,n):
         n-=1
@@ -67,31 +64,31 @@ class LyricComment(object):
     
     
     def saveLyric(self, music_id):
-        # 获取歌手个人主页
+        # 根据歌曲id获取歌词
         agent = random.choice(agents)
         self.headers["User-Agent"] = agent
         url = 'http://music.163.com/api/song/lyric?id=' + str(music_id) + '&lv=1&kv=1&tv=1'
-        # 去redis验证是否爬取过
+        #获取歌词
         r = requests.get(url, headers=self.headers)
         # 解析
         lyricJson = json.loads(r.text)
-        # 保存redis去重缓存
         if ('lrc' in lyricJson):
             # 把歌词里的时间干掉
             regex = re.compile(r'\[.*\]')
             finalLyric = re.sub(regex, '', lyricJson['lrc']['lyric']).strip()
-            #把歌词中的作词作曲等信息去掉
+            #把歌词中的作词作曲等信息去掉，利用中英文的:来判断
             n=finalLyric.count(":")
             if(n==0):
                 n=finalLyric.count("：")
-            print(n)
-            global lyr
-            lyr=finalLyric
+            # print(n)
+            # global lyr
+            # lyr=finalLyric
+            #临时查看清除的歌词
             
             if(n!=0):
                 finalLyric=clearInf(finalLyric,n)
+                
             # 持久化数据库
-            
             try:
                 sql.insert_lyric(music_id, finalLyric)
             except Exception as e:
@@ -110,9 +107,8 @@ def lyricSpider():
     # 所有歌手数量
     # 批次
     my_lyric_comment = LyricComment()
-    offset = 0
     musics = sql.get_all_music2()
-    print("offset:", offset, "artists :", len(musics), "start")
+    print("artists :", len(musics), "start")
     for item in musics:
         try:
             my_lyric_comment.saveLyric(item['music_id'])

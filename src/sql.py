@@ -152,13 +152,7 @@ def dis_connect():
 # 清库
 def truncate_all():
     with connection.cursor() as cursor:
-        sql = "truncate table artists"
-        cursor.execute(sql, ())
-        sql = "truncate table albums"
-        cursor.execute(sql, ())
-        sql = "truncate table musics"
-        cursor.execute(sql, ())
-        sql = "truncate table comments"
+        sql = "truncate table musics2"
         cursor.execute(sql, ())
         sql = "truncate table lyrics"
         cursor.execute(sql, ())

@@ -6,23 +6,21 @@ import matplotlib.pyplot as plt
 from matplotlib.image import imread
 from wordcloud import WordCloud, STOPWORDS
 
-import sql
+from src import sql
 
-if __name__ == '__main__':
-    print("start analyse comment")
+def wordcloudG():
+    print("start analyse lyrics")
     startTime = datetime.datetime.now()
     print(startTime.strftime('%Y-%m-%d %H:%M:%S'))
     texts = []
-    # 所有歌手数量
-    comment_num = 52
-    # 批次
 
-    comments = sql.get_lyr()
-    texts.append(comments)
-    for n in range(52):
+
+    lyr = sql.get_lyr()
+    texts.append(lyr)
+    for n in range(len(lyr)):
         texts[0][n]['lyric']=texts[0][n]['lyric'].replace('\n','')
-
-    color_mask = imread("music.jpg")
+        #把歌词中的\n干掉
+    color_mask = imread(r"src/music.jpg")
     midTime = datetime.datetime.now()
     print("获取评论信息完毕，分析start:", midTime.strftime('%Y-%m-%d %H:%M:%S'))
     tags = jieba.analyse.extract_tags(str(texts), 1000, withWeight=True)
@@ -47,3 +45,5 @@ if __name__ == '__main__':
     endTime = datetime.datetime.now()
     print(endTime.strftime('%Y-%m-%d %H:%M:%S'))
     print("耗时：", (endTime - startTime).seconds, "秒")
+if __name__ == '__main__':
+    wordcloudG()
