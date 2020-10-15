@@ -14,27 +14,27 @@ from src import sql
 start = time.time()#设置计时器
 
 def get_record():#创建获取歌手信息的方法
-    uid = '253335632'#随时可替换用户id
+    uid = '81631214'#随时可替换用户id
     url_recd = 'https://music.163.com/#/user/songs/rank?id='+uid#构建爬取url
     unknown = '未知'#特殊情况下错误提示用
     asingerlist = []#储存所有时间排行中所有歌手的列表
-    samaritan =webdriver.Chrome()#webdriver实例化
+    driver =webdriver.Chrome()#webdriver实例化
     song={}
-    samaritan.get(url_recd)
+    driver.get(url_recd)
     #实例化对象访问url
-    samaritan.switch_to.frame('g_iframe')
+    driver.switch_to.frame('g_iframe')
     #找到指定iframe标签（这里是g_iframe）然后跳入
-    samaritan.implicitly_wait(10)#隐式等待
-    samaritan.maximize_window()
+    driver.implicitly_wait(10)#隐式等待
+    driver.maximize_window()
     time.sleep(0.5)
     #首次打开此界面会出现"现在支持搜索mv了"的提示，将songsall给挡住无法点击，所以最大化，等待加载后再点击
-    samaritan.find_element_by_id("songsall").click()
+    driver.find_element_by_id("songsall").click()
     #注释.click()行,可改变(最近一周/所有时间)
     #定位到切换到所有时间的按钮标签
     #模拟鼠标点击查看所有时间下的听歌排行
-    samaritan.implicitly_wait(10)#隐式等待
+    driver.implicitly_wait(10)#隐式等待
     time.sleep(0.5)#这里还需要强制等待加载时间，一般一秒内就可以了
-    htmlrec = samaritan.page_source
+    htmlrec = driver.page_source
     #此时网页成为静态页面，获取所有页面信息
     pagerec = BeautifulSoup(htmlrec, 'html.parser')#使用bs4解析静态网页
     allrec = pagerec.find(class_="g-wrap p-prf").find(class_="m-record").find(class_="j-flag").find_all('li')
@@ -60,7 +60,7 @@ def get_record():#创建获取歌手信息的方法
     except:
         print(unknown)
         #如遇到意外，提示'未知'。
-    samaritan.close()#关闭浏览器
+    driver.close()#关闭浏览器
     return pagerec
 
 def musicSpider():  
