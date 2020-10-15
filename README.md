@@ -6,15 +6,14 @@
 
 ![][python]  
 **模块**:  
-[![selenium-badge]][selenium-link]  
-
+![][selenium-badge]  
+`pip install selenium`  
 [![chromedriver-badge]][chromedriver-link] ![][chrome]  
 [**ChromeDriver使用教程**](https://blog.csdn.net/weixin_41990913/article/details/90936149)
 
 
 [python]: https://img.shields.io/badge/python-3.7-blue?logo=python
 [selenium-badge]: https://img.shields.io/badge/selenium-3.141.0-blue?logo=python
-[selenium-link]: https://olvi73.github.io/2020/10/12/Github%20Badge%20%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/
 [chromedriver-badge]: https://img.shields.io/badge/ChromeDriver-86.0.4240.22-blue
 [chromedriver-link]: http://npm.taobao.org/mirrors/chromedriver/86.0.4240.22/
 [chrome]: https://img.shields.io/badge/Chrome-86.0.4240.75-blue
