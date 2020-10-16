@@ -5,16 +5,22 @@
 [Samaritan·J](https://blog.csdn.net/u010890916/article/details/106879465/) 爬取个人排行界面  
 
 ![][python]  
+
 **模块**:  
+
 ![][selenium-badge]  
-`pip install selenium`  
-  
-[![chromedriver-badge]][chromedriver-link] ![][chrome]  
+
+安装指令：`pip install selenium`  
+
+**外部浏览器支持**:  
+![][chrome]  
+
+[![chromedriver-badge]][chromedriver-link] 
 [**ChromeDriver使用教程**](https://blog.csdn.net/weixin_41990913/article/details/90936149)
 
 + 目前能够生成的词云
-1. 歌手名
-2. 歌词
+  1. 歌手名
+  2. 歌词
 
 [python]: https://img.shields.io/badge/python-3.7-blue?logo=python
 [selenium-badge]: https://img.shields.io/badge/selenium-3.141.0-blue?logo=python
