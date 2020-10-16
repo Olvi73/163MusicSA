@@ -92,7 +92,7 @@ def lyricSpider():
     # 所有歌手数量
     # 批次
     my_lyric_comment = LyricComment()
-    musics = sql.get_all_music2()
+    musics = sql.get_all_music()
     print("artists :", len(musics), "start")
     for item in musics:
         try:

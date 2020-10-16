@@ -14,10 +14,10 @@ from src import sql
 start = time.time()#设置计时器
 
 def get_record():#创建获取歌手信息的方法
-    uid = '381212571'#随时可替换用户id
+    uid = '31859344'#随时可替换用户id
     url_recd = 'https://music.163.com/#/user/songs/rank?id='+uid#构建爬取url
     unknown = '未知'#特殊情况下错误提示用
-    asingerlist = []#储存所有时间排行中所有歌手的列表
+    # asingerlist = []#储存所有时间排行中所有歌手的列表
     driver =webdriver.Chrome()#webdriver实例化
     song={}
     driver.get(url_recd)
@@ -44,14 +44,14 @@ def get_record():#创建获取歌手信息的方法
         #遍历刚才位置下每一个<li>标签内信息
             asinger = i.find(class_="s-fc8").text.replace('-', '')
             #定位并获取歌手文本信息，再用replace方法清洗文本去掉歌名和各种之间连结的'-'
-            asingerlist.append(asinger)
+            # asingerlist.append(asinger)
             #将干净的歌手文本加入列表
             music = i.find(class_="txt").find('a')
             music_name = music.getText()
             music_id = music['href'].replace('/song?id=', '')
             song[music_name]=music_id
             try:
-                sql.insert_music2(music_id, music_name,asinger)
+                sql.insert_music(music_id, music_name,asinger)
             except Exception as e:
                 # 打印错误日志
                 print(' inset db error: ', str(e))

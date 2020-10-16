@@ -1,46 +1,14 @@
-
--- ∏Ë ÷±Ì
-CREATE TABLE `artists` (
-  `artist_id` bigint(20) NOT NULL,
-  `artist_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`artist_id`),
-  KEY `unique_id` (`artist_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ◊®º≠±Ì
-CREATE TABLE `albums` (
-  `album_id` bigint(20) NOT NULL,
-  `artist_id` bigint(20) NOT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `img` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`album_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---  “Ù¿÷±Ì
-CREATE TABLE `musics` (
-  `music_id` int(20) NOT NULL,
-  `music_name` varchar(255) DEFAULT NULL,
-  `album_id` int(20) NOT NULL,
-  PRIMARY KEY (`music_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ∆¿¬€±Ì
-CREATE TABLE `comments` (
-  `comment_id` bigint(20) NOT NULL,
-  `music_id` bigint(20) DEFAULT NULL,
-  `content` varchar(255) DEFAULT NULL,
-  `liked_count` int(10) DEFAULT NULL,
-  `time` bigint(20) DEFAULT NULL,
-  `user_id` bigint(20) DEFAULT NULL,
-  `nickname` varchar(255) DEFAULT NULL,
-  `user_img` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`comment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ∏Ë¥ ±Ì
+-- Ê≠åËØçË°®
 CREATE TABLE `lyrics` (
-  `music_id` bigint(20) NOT NULL,
-  `lyric` text DEFAULT NULL,
+  `music_id` BIGINT(20) NOT NULL,
+  `lyric` TEXT DEFAULT NULL,
   PRIMARY KEY (`music_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
 
+-- Ê≠åÊõ≤Ë°®
+CREATE TABLE `musics` (
+  `music_id` INT(20) NOT NULL,
+  `music_name` VARCHAR(255) DEFAULT NULL,
+  `nickname` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`music_id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;

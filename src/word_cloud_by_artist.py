@@ -32,7 +32,6 @@ print("获取歌手信息完毕，分析start:", midTime.strftime('%Y-%m-%d %H:%
 tags = jieba.analyse.extract_tags(str(texts), 1000, withWeight=True)
 data = {item[0]: item[1] for item in tags}
 data.pop('nickname')
-data.pop('薛之谦')
 word_cloud = WordCloud(scale=16,
                        font_path="msyh.ttc",
                        background_color="white",
@@ -45,10 +44,11 @@ word_cloud = WordCloud(scale=16,
 plt.figure()  # 创建一个图形实例
 plt.imshow(word_cloud)
 plt.axis("off")  # 不显示坐标尺寸
-plt.savefig('artistCloud.png', dpi=400)  # 指定分辨率
+plt.savefig(r'wordcloud/artistCloud.png', dpi=400)  # 指定分辨率
 # plt.show()
 
 print("finish analyse lyric")
 endTime = datetime.datetime.now()
 print(endTime.strftime('%Y-%m-%d %H:%M:%S'))
 print("耗时：", (endTime - startTime).seconds, "秒")
+sql.dis_connect()

@@ -5,7 +5,10 @@ import matplotlib.pyplot as plt
 from matplotlib.image import imread
 from wordcloud import WordCloud
 
-from src import sql
+# from src import sql
+
+import sql
+#单独运行时解开注释
 
 def wordcloudG():
     print("start analyse lyrics")
@@ -20,6 +23,8 @@ def wordcloudG():
         texts[0][n]['lyric']=texts[0][n]['lyric'].replace('\n','')
         #把歌词中的\n干掉
     color_mask = imread(r"src/img/heart.jpg")
+    # color_mask = imread(r"src/img/heart.jpg")  
+    #单独运行时解开注释
     midTime = datetime.datetime.now()
     print("获取歌词信息完毕，分析start:", midTime.strftime('%Y-%m-%d %H:%M:%S'))
     tags = jieba.analyse.extract_tags(str(texts), 1000, withWeight=True)
@@ -39,7 +44,7 @@ def wordcloudG():
     plt.figure()  # 创建一个图形实例
     plt.imshow(word_cloud)
     plt.axis("off")  # 不显示坐标尺寸
-    plt.savefig('lyricCloud.png', dpi=400)  # 指定分辨率
+    plt.savefig(r'src/wordcloud/lyricCloud.png', dpi=400)  # 指定分辨率
     # plt.show()
     
     print("finish analyse lyric")
