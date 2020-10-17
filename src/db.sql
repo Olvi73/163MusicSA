@@ -7,8 +7,9 @@ CREATE TABLE `lyrics` (
 
 -- 歌曲表
 CREATE TABLE `musics` (
+  `user_id` INT(20) NOT NULL,
   `music_id` INT(20) NOT NULL,
   `music_name` VARCHAR(255) DEFAULT NULL,
   `nickname` VARCHAR(255) DEFAULT NULL,
-  PRIMARY KEY (`music_id`)
+  PRIMARY KEY (`user_id`,`music_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;

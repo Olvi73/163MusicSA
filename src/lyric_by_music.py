@@ -17,17 +17,21 @@ from src.util.user_agents import agents
 
 words=['编曲','混音','录音室','录音师','录音','母带','制作','贝斯']
 def clearInf(lyr):
-        if(re.search('.*:.*(\n|.)',lyr)):
-            rs=re.search('.*:.*(\n|.)',lyr).group()
-            lyr=lyr.replace(rs,'')
-        if(re.search('.*：.*(\n|.)',lyr)):
-            rs=re.search('.*：.*(\n|.)',lyr).group()
-            lyr=lyr.replace(rs,'')
-        #作曲 :  aaa/bbb\n
-        n=lyr.count(":")+lyr.count("：")
-        if(n!=0):
-            return clearInf(lyr)
-        return lyr
+    try:
+        rs=re.search('.*:.*(\n|.)',lyr).group()
+        lyr=lyr.replace(rs,'')
+    except:
+       pass
+    try:
+        rs=re.search('.*：.*(\n|.)',lyr).group()
+        lyr=lyr.replace(rs,'')
+    except:
+       pass
+    #清除  作曲 :  nameA/nameB \n
+    n=lyr.count(":")+lyr.count("：")
+    if(n!=0):
+        return clearInf(lyr)
+    return lyr
     
 class LyricComment(object):
     headers = {
@@ -63,16 +67,19 @@ class LyricComment(object):
             regex = re.compile(r'\[.*\]')
             finalLyric = re.sub(regex, '', lyricJson['lrc']['lyric']).strip()
             #把歌词中的作词作曲等信息去掉，利用中英文的:来判断
+
             # print(n)
             # global lyr
             # lyr=finalLyric
-            #临时查看清除的歌词
+            #临时查看歌词
+
             n=finalLyric.count(":")+finalLyric.count("：")
             if(n!=0):
                 finalLyric=clearInf(finalLyric)
             # for n in range(len(words)):
             #     finalLyric=finalLyric.replace(words[n],'')
             #临时清理
+
             # 持久化数据库
             try:
                 sql.insert_lyric(music_id, finalLyric)
@@ -85,15 +92,19 @@ class LyricComment(object):
 
 
 
-def lyricSpider():
+def lyricSpider(user_id):
     print("======= 开始爬 歌词 信息 ===========")
     startTime = datetime.datetime.now()
     print(startTime.strftime('%Y-%m-%d %H:%M:%S'))
     # 所有歌手数量
-    # 批次
     my_lyric_comment = LyricComment()
-    musics = sql.get_all_music()
-    print("artists :", len(musics), "start")
+    try:
+        musics = sql.get_music(user_id)
+    except:
+        print("用户未开启权限,程序结束")
+        sys.exit(0)
+    print("musics :", len(musics), "start")
+
     for item in musics:
         try:
             my_lyric_comment.saveLyric(item['music_id'])
@@ -101,7 +112,7 @@ def lyricSpider():
             # 打印错误日志
             print(item['music_id'], ' internal  error : ' + str(e))
             # traceback.print_exc()
-            time.sleep(1)
+            # time.sleep(1)
     print("======= 结束爬 歌词 信息 ===========")
     endTime = datetime.datetime.now()
     print(endTime.strftime('%Y-%m-%d %H:%M:%S'))

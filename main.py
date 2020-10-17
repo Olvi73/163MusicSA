@@ -5,7 +5,10 @@ import os
 from src import sql
 from src.lyric_by_music import lyricSpider
 from src.music_by_songsall import musicSpider
-from src.word_cloud_by_lyric import wordcloudG
+from src.word_cloud_by_artist import cloudArtist
+from src.word_cloud_by_lyric import cloudLyric
+
+
 
 # 保存日志
 class Logger(object):
@@ -23,18 +26,20 @@ class Logger(object):
 
 if __name__ == '__main__':
     path = os.path.abspath(os.path.dirname(__file__))
-    type = sys.getfilesystemencoding()
+    # type = sys.getfilesystemencoding()
+    user_id = '365817817'
     sys.stdout = Logger('log.txt')
     print("开始爬取网易云")
     startTime = datetime.datetime.now()
     print(startTime.strftime('%Y-%m-%d %H:%M:%S'))
     # 清空数据库
-    sql.truncate_all()
-    print("清空数据库完成")
+    # sql.truncate_all()
+    # print("清空数据库完成")
     # 开始执行
-    musicSpider()
-    lyricSpider()
-    wordcloudG()
+    musicSpider(user_id)
+    lyricSpider(user_id)
+    cloudLyric(user_id)
+    cloudArtist(user_id)
     sql.dis_connect()
     endTime = datetime.datetime.now()
     print(endTime.strftime('%Y-%m-%d %H:%M:%S'))

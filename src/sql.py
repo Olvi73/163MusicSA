@@ -11,19 +11,29 @@ connection = pymysql.connect(host='localhost',
                              cursorclass=pymysql.cursors.DictCursor)
 
 
-
-    
-def get_lyr():
+# 根据用户id获取其排行的音乐id
+def get_music(user_id):
     with connection.cursor() as cursor:
-        sql = "SELECT `lyric` FROM `lyrics`  "
-        cursor.execute(sql, ())
+        sql = "SELECT `music_id` FROM `musics` WHERE user_id=%s ORDER BY music_id"
+        cursor.execute(sql, user_id)
         return cursor.fetchall()
 
-def get_artist():
+
+# 根据用户id获取歌词
+def get_lyric(user_id):
     with connection.cursor() as cursor:
-        sql = "SELECT nickname FROM `musics`  "
-        cursor.execute(sql, ())
+        sql = "SELECT `lyric` FROM `lyrics`,`musics` WHERE lyrics.`music_id`=musics.`music_id` AND musics.`user_id`=%s"
+        cursor.execute(sql, user_id)
         return cursor.fetchall()
+
+
+# 根据用户id获取歌手
+def get_artist(user_id):
+    with connection.cursor() as cursor:
+        sql = "SELECT `nickname` FROM `musics` WHERE user_id=%s"
+        cursor.execute(sql, user_id)
+        return cursor.fetchall()
+
 
 # 保存歌词
 def insert_lyric(music_id, lyric):
@@ -32,18 +42,33 @@ def insert_lyric(music_id, lyric):
         cursor.execute(sql, (music_id, lyric))
     connection.commit()
 
+
 # 保存音乐
-def insert_music(music_id, music_name, nickname):
+def insert_music(user_id, music_id, music_name, nickname):
     with connection.cursor() as cursor:
-        sql = "INSERT INTO `musics` (`music_id`, `music_name`, `nickname`) VALUES (%s, %s, %s)"
-        cursor.execute(sql, (music_id, music_name, nickname))
+        sql = "INSERT INTO `musics` (`user_id`,`music_id`, `music_name`, `nickname`) VALUES (%s, %s, %s, %s)"
+        cursor.execute(sql, (user_id, music_id, music_name, nickname))
     connection.commit()
 
-# 获取所有音乐的 ID
 
+# 获取所有音乐的 ID\歌词\歌手
 def get_all_music():
     with connection.cursor() as cursor:
         sql = "SELECT `music_id` FROM `musics` ORDER BY music_id"
+        cursor.execute(sql, ())
+        return cursor.fetchall()
+
+
+def get_all_lyric():
+    with connection.cursor() as cursor:
+        sql = "SELECT `lyric` FROM `lyrics`  "
+        cursor.execute(sql, ())
+        return cursor.fetchall()
+
+
+def get_all_artist():
+    with connection.cursor() as cursor:
+        sql = "SELECT `nickname` FROM `musics`  "
         cursor.execute(sql, ())
         return cursor.fetchall()
 
