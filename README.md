@@ -22,7 +22,11 @@
   1. 歌手名
   2. 歌词
 
-[python]: https://img.shields.io/badge/python-3.7-blue?logo=python
+## 使用
++ 1. 创建数据库，修改`sql.py`内连接数据库相关信息  
++ 2. 修改`main.py`内的`user_id=''`，运行`main.py`  
+
+[python]: https://img.shields.io/badge/python-3.8-blue?logo=python
 [selenium-badge]: https://img.shields.io/badge/selenium-3.141.0-blue?logo=python
 [chromedriver-badge]: https://img.shields.io/badge/ChromeDriver-86.0.4240.22-blue
 [chromedriver-link]: http://npm.taobao.org/mirrors/chromedriver/86.0.4240.22/
