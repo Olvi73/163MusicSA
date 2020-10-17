@@ -33,8 +33,8 @@ if __name__ == '__main__':
     startTime = datetime.datetime.now()
     print(startTime.strftime('%Y-%m-%d %H:%M:%S'))
     # 清空数据库
-    sql.truncate_all()
-    print("清空数据库完成")
+    # sql.truncate_all()
+    # print("清空数据库完成")
     # 开始执行
     musicSpider(user_id)
     lyricSpider(user_id)
