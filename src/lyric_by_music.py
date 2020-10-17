@@ -8,14 +8,11 @@ import re
 import time
 import requests
 
-
-# from src import sql, redis_util
-# from src.util.user_agents import agents
-lyr=''
 from src import sql
 from src.util.user_agents import agents
 
 words=['编曲','混音','录音室','录音师','录音','母带','制作','贝斯']
+#自定义清楚内容
 def clearInf(lyr):
     try:
         rs=re.search('.*:.*(\n|.)',lyr).group()

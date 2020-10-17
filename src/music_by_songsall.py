@@ -14,7 +14,6 @@ from src import sql
 
 def get_record(user_id):  # 创建获取歌手信息的方法
     url_recd = 'https://music.163.com/#/user/songs/rank?id=' + user_id  # 构建爬取url
-    unknown = '未知'  # 特殊情况下错误提示用
     driver = webdriver.Chrome()  # webdriver实例化
     song = {}
     driver.get(url_recd)
@@ -52,8 +51,8 @@ def get_record(user_id):  # 创建获取歌手信息的方法
                 print(' inset db error: ', str(e))
                 # traceback.print_exc()
                 time.sleep(1)
-    except:
-        print(unknown)
+    except Exception as e:
+        print('unknown error: ', str(e))
         # 如遇到意外，提示'未知'。
     driver.close()  # 关闭浏览器
     return pagerec
