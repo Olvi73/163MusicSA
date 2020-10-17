@@ -14,7 +14,9 @@ from src import sql
 
 def get_record(user_id):  # 创建获取歌手信息的方法
     url_recd = 'https://music.163.com/#/user/songs/rank?id=' + user_id  # 构建爬取url
-    driver = webdriver.Chrome()  # webdriver实例化
+    option = webdriver.ChromeOptions()  # 设置不弹出浏览器
+    option.headless = True
+    driver = webdriver.Chrome(chrome_options=option)  # webdriver实例化
     song = {}
     driver.get(url_recd)
     # 实例化对象访问url
