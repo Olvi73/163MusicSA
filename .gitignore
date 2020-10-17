@@ -1,2 +1,4 @@
 #img
 src/wordcloud/
+.idea
+log.txt
