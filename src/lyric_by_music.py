@@ -12,7 +12,7 @@ from src import sql
 from src.util.user_agents import agents
 
 words=['编曲','混音','录音室','录音师','录音','母带','制作','贝斯']
-#自定义清楚内容
+#自定义清除内容
 def clearInf(lyr):
     try:
         rs=re.search('.*:.*(\n|.)',lyr).group()
