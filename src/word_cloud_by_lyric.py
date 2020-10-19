@@ -17,6 +17,7 @@ def cloudLyric(user_id):
     texts = []
 
     lyr = sql.get_lyric(user_id)
+    # lyr = sql.get_all_lyric()
     texts.append(lyr)
     for n in range(len(lyr)):
         texts[0][n]['lyric'] = texts[0][n]['lyric'].replace('\n', '')

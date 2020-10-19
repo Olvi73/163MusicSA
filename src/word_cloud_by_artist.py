@@ -22,6 +22,7 @@ def cloudArtist(user_id):
     texts = []
 
     lyr = sql.get_artist(user_id)
+    # lyr = sql.get_all_artist()
     texts.append(lyr)
     for n in range(len(lyr)):
         texts[0][n]['nickname'] = texts[0][n]['nickname'].replace('\xa0', '')
