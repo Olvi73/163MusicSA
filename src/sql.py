@@ -73,6 +73,13 @@ def get_all_artist():
         return cursor.fetchall()
 
 
+def less_than_one(user_id):
+    with connection.cursor() as cursor:
+        sql = "call proc (%s)"
+        cursor.execute(sql, user_id)
+        return cursor.fetchall()
+
+
 def dis_connect():
     connection.close()
 
