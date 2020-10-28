@@ -1,5 +1,7 @@
 # 163MusicSA
-163 Music Self Analysis-爬取个人听歌排行中歌曲信息，生成词云  
+163 Music Self Analysis-爬取听歌排行中的歌曲信息  
++ 生成词云  
++ 寻找最相似的用户  
 >参考地址  
 [NacedWang/163MusicSpider](https://github.com/NacedWang/163MusicSpider) 基础代码部分  
 [Samaritan·J](https://blog.csdn.net/u010890916/article/details/106879465/) 爬取个人排行界面  
