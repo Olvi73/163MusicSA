@@ -7,7 +7,8 @@ import random
 import re
 import time
 import requests
-
+import math
+from concurrent.futures.process import ProcessPoolExecutor
 from src import sql
 from src.util.user_agents import agents
 
@@ -48,8 +49,7 @@ class LyricComment(object):
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36'
     
     }
-    
-    
+
     def saveLyric(self, music_id):
         # 根据歌曲id获取歌词
         agent = random.choice(agents)
@@ -88,20 +88,11 @@ class LyricComment(object):
         time.sleep(1)
 
 
-
-def lyricSpider(user_id):
-    print("======= 开始爬 歌词 信息 ===========")
-    startTime = datetime.datetime.now()
-    print(startTime.strftime('%Y-%m-%d %H:%M:%S'))
-    # 所有歌手数量
+def saveLyricBatch(user_id,index):
     my_lyric_comment = LyricComment()
-    try:
-        musics = sql.get_music(user_id)
-    except:
-        print("用户未开启权限,程序结束")
-        sys.exit(0)
-    print("musics :", len(musics), "start")
-
+    offset = 34 * index
+    musics = sql.get_music_page(user_id,offset, 34)
+    print("index:", index, "offset:", offset, "artists :", len(musics), "start")
     for item in musics:
         try:
             my_lyric_comment.saveLyric(item['music_id'])
@@ -109,7 +100,26 @@ def lyricSpider(user_id):
             # 打印错误日志
             print(item['music_id'], ' internal  error : ' + str(e))
             # traceback.print_exc()
-            # time.sleep(1)
+            time.sleep(1)
+    print("index:", index, "finished")
+
+
+def lyricSpider(user_id):
+    print("======= 开始爬 歌词 信息 ===========")
+    startTime = datetime.datetime.now()
+    print(startTime.strftime('%Y-%m-%d %H:%M:%S'))
+    # 所有歌手数量
+    try:
+        musics_num = sql.get_music_num(user_id)
+    except:
+        print("用户未开启权限,程序结束")
+        sys.exit(0)
+    print("musics :", len(musics_num), "start")
+    batch = math.ceil(musics_num.get('num') / 34.0)
+    pool = ProcessPoolExecutor(3)
+    for index in range(0, batch):
+        pool.submit(saveLyricBatch, user_id, index)
+    pool.shutdown(wait=True)
     print("======= 结束爬 歌词 信息 ===========")
     endTime = datetime.datetime.now()
     print(endTime.strftime('%Y-%m-%d %H:%M:%S'))

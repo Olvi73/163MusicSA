@@ -52,7 +52,7 @@ def get_record(user_id):  # 创建获取歌手信息的方法
                 # 打印错误日志
                 print(' inset db error: ', str(e))
                 # traceback.print_exc()
-                time.sleep(1)
+                # time.sleep(1)
     except Exception as e:
         print('unknown error: ', str(e))
         # 如遇到意外，提示'未知'。

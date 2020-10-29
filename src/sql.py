@@ -19,6 +19,14 @@ def get_music(user_id):
         return cursor.fetchall()
 
 
+# 获取歌曲总数
+def get_music_num(user_id):
+    with connection.cursor() as cursor:
+        sql = "SELECT count(1) as num FROM `musics` WHERE user_id=%s"
+        cursor.execute(sql, user_id)
+        return cursor.fetchone()
+
+
 # 根据用户id获取歌词
 def get_lyric(user_id):
     with connection.cursor() as cursor:
@@ -49,6 +57,14 @@ def insert_music(user_id, music_id, music_name, nickname):
         sql = "INSERT INTO `musics` (`user_id`,`music_id`, `music_name`, `nickname`) VALUES (%s, %s, %s, %s)"
         cursor.execute(sql, (user_id, music_id, music_name, nickname))
     connection.commit()
+
+
+# 分页获取音乐的 ID
+def get_music_page(user_id, offset, size):
+    with connection.cursor() as cursor:
+        sql = "SELECT `music_id` FROM `musics` WHERE user_id=%s limit %s, %s"
+        cursor.execute(sql, (user_id, offset, size))
+        return cursor.fetchall()
 
 
 # 获取所有音乐的 ID\歌词\歌手
