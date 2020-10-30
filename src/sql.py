@@ -27,6 +27,14 @@ def get_music_num(user_id):
         return cursor.fetchone()
 
 
+# 获取歌曲总数
+def try_music(music_id):
+    with connection.cursor() as cursor:
+        sql = "SELECT count(1) as num FROM `lyrics` WHERE music_id=%s"
+        cursor.execute(sql, music_id)
+        return cursor.fetchone()
+
+
 # 根据用户id获取歌词
 def get_lyric(user_id):
     with connection.cursor() as cursor:

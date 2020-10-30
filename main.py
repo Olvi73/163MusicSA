@@ -7,6 +7,7 @@ from src.lyric_by_music import lyricSpider
 from src.music_by_songsall import musicSpider
 from src.word_cloud_by_artist import cloudArtist
 from src.word_cloud_by_lyric import cloudLyric
+from src.lto import analysis
 
 
 
@@ -41,15 +42,8 @@ if __name__ == '__main__':
     lyricSpider(user_id)
     cloudLyric(user_id)
     cloudArtist(user_id)
-    total=0
-    l=sql.less_than_one(user_id)
-    strr=''
-    for song in l:
-        strr=strr+str(song['song'])+'首相同'+str(song['same'])+'人  '
-        total+=int(song['same'])
-    print('与数据库中的用户',total,'人有共同喜欢的歌曲')
-    print(strr)
-    strr=''
+    analysis(user_id)
+
     sql.dis_connect()
     endTime = datetime.datetime.now()
     print(endTime.strftime('%Y-%m-%d %H:%M:%S'))

@@ -92,15 +92,17 @@ def saveLyricBatch(user_id,index):
     my_lyric_comment = LyricComment()
     offset = 34 * index
     musics = sql.get_music_page(user_id,offset, 34)
-    print("index:", index, "offset:", offset, "artists :", len(musics), "start")
+    print("index:", index, "offset:", offset, "musics :", len(musics), "start")
     for item in musics:
-        try:
-            my_lyric_comment.saveLyric(item['music_id'])
-        except Exception as e:
-            # 打印错误日志
-            print(item['music_id'], ' internal  error : ' + str(e))
-            # traceback.print_exc()
-            time.sleep(1)
+        flag=sql.try_music(item['music_id']).get('num')
+        if(flag==0):
+            try:
+                my_lyric_comment.saveLyric(item['music_id'])
+            except Exception as e:
+                # 打印错误日志
+                print(item['music_id'], ' internal  error : ' + str(e))
+                # traceback.print_exc()
+                time.sleep(1)
     print("index:", index, "finished")
 
 
